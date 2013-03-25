@@ -3,6 +3,7 @@ package com.supinfo.geekquote.fragments;
 import java.util.List;
 
 import com.supinfo.geekquote.R;
+import com.supinfo.geekquote.adapters.QuotesListAdapter;
 import com.supinfo.geekquote.models.Quote;
 
 import android.os.Bundle;
@@ -32,12 +33,16 @@ public class QuotesListFragment extends Fragment {
 		ListView quotesList = (ListView) view.findViewById(
 				R.id.quotesList);
 		
+//		quotesList.setAdapter(
+//			new ArrayAdapter<Quote>(
+//				getActivity(), 
+//				android.R.layout.simple_list_item_1,
+//				this.quotes
+//			)
+//		);
+		
 		quotesList.setAdapter(
-			new ArrayAdapter<Quote>(
-				getActivity(), 
-				android.R.layout.simple_list_item_1,
-				this.quotes
-			)
+				new QuotesListAdapter(getActivity(), 0, quotes)
 		);
 		
 		
