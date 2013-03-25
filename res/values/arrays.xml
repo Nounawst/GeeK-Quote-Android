@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quotes">
+        <item >Qui pisse dans le vent se rince les dents</item>
+        <item >Chuck Norris ne dort pas, il attend</item>
+        <item >Bazinga</item>
+    </string-array>
+    
+</resources>
