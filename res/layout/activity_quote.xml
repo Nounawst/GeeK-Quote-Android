@@ -1,8 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quoteActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    tools:context=".QuoteActivity" >
+    
     <TextView
         android:id="@+id/quoteText"
         android:layout_width="match_parent"
@@ -10,6 +13,7 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:gravity="center_vertical"
+        android:longClickable="true"
         android:text="@string/quote"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -29,5 +33,29 @@
         android:layout_gravity="center_horizontal"
         android:numStars="5"
         android:stepSize="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_horizontal|bottom" >
+
+        <Button
+            android:id="@+id/quoteButtonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/quoteButtonOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/ok" />
+
+    </LinearLayout>
 
 </LinearLayout>

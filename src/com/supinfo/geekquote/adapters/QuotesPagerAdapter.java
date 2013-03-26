@@ -11,13 +11,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 
 public class QuotesPagerAdapter extends FragmentPagerAdapter {
 	
 	private List<Quote> quotes;
+	private QuotesListFragment quoteListFragment;
+	private List<QuoteFragment> quoteFragments;
 
 	public QuotesPagerAdapter(FragmentManager fm) {
 		super(fm);
+		this.quoteFragments = new ArrayList<QuoteFragment>();
 	}
 	
 	public QuotesPagerAdapter(FragmentManager fm, List<Quote> quotes) {
@@ -29,20 +34,30 @@ public class QuotesPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public Fragment getItem(int pos) {
-		Bundle args = new Bundle();
 		Fragment frag;
 		
-		if(pos == 0) {
-			args.putSerializable("quotes", (ArrayList<Quote>) this.quotes);
+		Log.d("Pouet", "QuotesPagerAdapter getItem : " + pos);
+		
+		if(this.quoteFragments.size() <= pos || this.quoteFragments.get(pos) == null) {
+			Bundle args = new Bundle();
 			
-			frag = new QuotesListFragment();
+			if(pos == 0) {
+				args.putSerializable("quotes", (ArrayList<Quote>) this.quotes);
+				
+				quoteListFragment = new QuotesListFragment();
+				frag = quoteListFragment;
+			}
+			else {
+				args.putSerializable("quote", this.quotes.get(pos - 1));
+		
+				frag = new QuoteFragment();
+				this.quoteFragments.add((QuoteFragment) frag);
+			}
+			frag.setArguments(args);
 		}
 		else {
-			args.putSerializable("quote", this.quotes.get(pos - 1));
-	
-			frag = new QuoteFragment();
+			frag = this.quoteFragments.get(pos);
 		}
-		frag.setArguments(args);
 		
 		return frag;
 	}
@@ -59,6 +74,13 @@ public class QuotesPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle(int pos) {
 		
 		return (pos == 0 ? "Quotes" : this.quotes.get(pos - 1).getStrQuote());
+	}
+
+	public void notifyDataSetChanged() {
+		super.notifyDataSetChanged();
+		
+		((ArrayAdapter<Quote>) this.quoteListFragment.getQuotesListView().getAdapter())
+			.notifyDataSetChanged();
 	}
 
 }

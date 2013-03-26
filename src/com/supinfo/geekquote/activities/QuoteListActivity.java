@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 
 import com.supinfo.geekquote.R;
@@ -55,6 +57,38 @@ public class QuoteListActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.quote_list, menu);
+		
 		return true;
+	}
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, 
+			Intent data) {
+		if(resultCode == RESULT_OK) {
+			Quote quote = (Quote) data.getExtras().getSerializable("quote");
+			
+			this.quotes.set(data.getExtras().getInt("quoteId"), quote);
+			this.quotesPagerAdapter.notifyDataSetChanged();
+		}
+	}
+	
+	
+	// GETTERS ET SETTERS
+
+	public QuotesPagerAdapter getQuotesPagerAdapter() {
+		return quotesPagerAdapter;
+	}
+
+	public void setQuotesPagerAdapter(QuotesPagerAdapter quotesPagerAdapter) {
+		this.quotesPagerAdapter = quotesPagerAdapter;
+	}
+
+	public List<Quote> getQuotes() {
+		return quotes;
+	}
+
+	public void setQuotes(List<Quote> quotes) {
+		this.quotes = quotes;
 	}
 }
